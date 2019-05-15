@@ -3,11 +3,9 @@
 
 
 #if defined(OS_WINX86)
-#include "osapi/winx86/ThreadFunctor.hpp"
 #elif defined(OS_LINUX)
 #include "osapi/linux/ThreadFunctor.hpp"
 #elif defined(OS_FREERTOS)
-#include "osapi/freertos/ThreadFunctor.hpp"
 #else
 #error "No known OS defined"
 #endif

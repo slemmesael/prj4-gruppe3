@@ -29,9 +29,9 @@ ifeq (${TARGET},host)
 include compiler_setup.host
 endif
 
-ifeq (${TARGET},target)
+ifeq (${TARGET},rpi)
 # Include target specific stuff
-include compiler_setup.target
+include compiler_setup.rpi
 endif
 
 # Setting compiler flags
@@ -47,7 +47,7 @@ ${OBJ_DEST_DIR}/%.o: %.cpp
 	@echo "Compiling "$<
 	@${CXX} -c $< -o $@ ${CXXFLAGS}
 
-${OBJ_DEST_DIR}/%.d: %.cpp 
+${OBJ_DEST_DIR}/%.d: %.cpp
 	@echo "Generating dependency for $<"
 	@mkdir -p ${OBJ_DEST_DIR}
 	@$(CXX) -MT${OBJ_DEST_DIR}/$(@:.d=.o) -MM $(CXXFLAGS) $^ > $@
@@ -58,13 +58,15 @@ ${DEST_DIR}:
 ${OBJ_DEST_DIR}:
 	@mkdir -p ${OBJ_DEST_DIR}
 
-${DEST_DIR}/libOSApi.a: ${OBJ_DEST_DIR} ${DEST_DIR} $(DEPS) ${OBJS} 
+${DEST_DIR}/libOSApi.a: ${OBJ_DEST_DIR} ${DEST_DIR} $(DEPS) ${OBJS}
 	@echo "Linking "$<
 	@${AR} cr $@ ${OBJS}
 
 
 clean:
 	@echo "Cleaning up..."
-	@rm -f ${DEST_DIR}/libOSApi.a $(OBJS) $(DEPS)
+	@rm -rf ${DEST_DIR}/libOSApi.a $(OBJS) $(DEPS)
 
+ifneq ($(MAKECMDGOALS),clean)
 -include $(DEPS)
+endif

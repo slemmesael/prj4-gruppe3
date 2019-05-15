@@ -3,8 +3,8 @@
 
 void LogSystem::writeToLog(LogInd* l)
 {
-  lf_ << l->text << std::endl;
-  
+    std::cout << "text: " << l->text << std::endl;
+    lf_ << l->text << std::endl;
 }
 
 void LogSystem::handleMsg(unsigned long id, osapi::Message* msg)
@@ -18,7 +18,7 @@ void LogSystem::handleMsg(unsigned long id, osapi::Message* msg)
     default:
       std::cout << "Unknown event..." << std::endl;
   }
-  
+
 }
 
 void LogSystem::run()
@@ -30,6 +30,5 @@ void LogSystem::run()
     handleMsg(id, msg);
     delete msg;
   }
-  
-}
 
+}

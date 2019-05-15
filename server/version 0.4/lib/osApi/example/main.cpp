@@ -5,18 +5,18 @@
 
 int main()
 {
-  //Console c;
-  LogSystem l;
-  KeyBoardInput k(&l);
-  
-  //osapi::Thread ct(&c);
-  osapi::Thread lt(&l);
-  lt.start();
-  osapi::Thread kt(&k);
-  kt.start();
+    //Console c;
+    LogSystem l;
+    KeyBoardInput k(&l);
 
-  //ct.join();
-  lt.join();
-  kt.join();
-  
+    //osapi::Thread ct(&c);
+    osapi::Thread lt(&l);
+    lt.start();
+    osapi::Thread kt(&k);
+    kt.start();
+
+    //ct.join();
+    lt.join();
+    kt.join();
+
 }
