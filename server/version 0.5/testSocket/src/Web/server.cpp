@@ -26,7 +26,7 @@ namespace Web
     std::cout << "Web::Server:\t Initializing..." << std::endl;
 
     static int totalUsers = 0;
-    int port = 3000;
+    int port = 9100;
 
     // On user connection
     socket_->hub_.onConnection([this](
@@ -79,6 +79,8 @@ namespace Web
       // preset plant type cases
     case ID_PLANT_1:
       {
+          // set temp og humi
+          // writeI2c(25,40)
 				
 
 	break;
