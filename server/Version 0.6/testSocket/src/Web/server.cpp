@@ -15,36 +15,46 @@ using json = nlohmann::json;
 #include "server.hpp"
 
 //Planter
-nlohmann::json plante1 = false;
-nlohmann::json plante2 = false;
-nlohmann::json plante3 = false;
+json plante1 = false;
+json plante2 = false;
+json plante3 = false;
 //PlantList
-auto PlantList = nlohmann::json::parse"{
-  \"Plants1\": "Gulerod",
-  \"Plants2\": "Løg",
-  \"Plants3\": "Chili",
-  \"Temp1\": 14,
-  \"Temp2\": 15,
-  \"Temp3\": 16,
-  \"Fugt1\": 60,
-  \"Fugt2\": 65,
-  \"Fugt3\": 70
-}"
+auto PlantList = json::parse("\
+{\
+    \"Plants1\": Gulerod,   \
+    \"Plants2\": Løg,       \
+    \"Plants3\": Chili,     \
+    \"Temp1\": 14,          \
+    \"Temp2\": 15,          \
+    \"Temp3\": 16,          \
+    \"Fugt1\": 60,          \
+    \"Fugt2\": 65,          \
+    \"Fugt3\": 70           \
+}");
+
+
+
 //PlantTypeRec
-auto PlantTypeRec = nlohmann::json::parse"{
-  \"Temp\": \"14 grader\",
-  \"Fugt\": 65
-}"
+auto PlantTypeRec = json::parse("\
+{\
+  \"Temp\": 14 grader,  \
+  \"Fugt\": 65              \
+}");
+
 //PlantSetting
-auto PlantSettings = nlohmann::json::parse"{
-  \"TempS\": t,
-  \"FugtS\": f
-}"
+auto PlantSettings = json::parse("\
+{\
+  \"TempS\": t, \
+  \"FugtS\": f  \
+}");
+
+
 //ReqData - bare lige en test inden psocHandler_ virker
-auto ReqData = nlohmann::json::parse"{
-  \"Temp\": \"14 grader\",
-  \"Fugt\": 65
-}"
+auto ReqData = json::parse("\
+{\
+  \"Temp\": 14 grader,  \
+  \"Fugt\": 65              \
+}");
 
 
 namespace Web
@@ -103,20 +113,20 @@ namespace Web
     }
 
     std::cout << "web::Server:\t Connection is running on port '" << port << "'" << std::endl;
-    std::cout << "web::Server:\t External ip '" << "https://10.9.8.2/" << "'" << std::endl;
+    std::cout << "web::Server:\t External ip for RPi '" << "https://10.9.8.2/" << "'" << std::endl;
   }
 
-  void Server::handleMsg(uWS::SERVER *ws, osapi::Message *msg)
+  void Server::handleMsg(unsigned long id, osapi::Message *msg)
   {
-    auto msg = nlohmann::json::parse(msg);
+    auto msg = json::parse(msg);
     std::cout << msg << std::endl;
 
     switch (msg.at("command")) {
       // preset plant type cases
     case BrugerIndtastTF:
       {
-        std::cout << "Brugeren har indtastet temp på:" << msg.at("brugerT") << "grader" << std::endl;
-				std::cout << "Brugeren har indtastet fugt på:" << msg.at("brugerF") << "%" << std::endl;
+        std::cout << "Brugeren har indtastet temp på: " << msg.at("brugerT") << " grader " << std::endl;
+        std::cout << "Brugeren har indtastet fugt på: " << msg.at("brugerF") << " % " << std::endl;
 //        psocHandler_->setTemp(stringMatcher.at(msg.at("brugerT"))); noget i den her stil
 //        psocHandler_->setFugt(stringMatcher.at(msg.at("brugerF"))); noget i den her stil
 	break;
