@@ -11,6 +11,7 @@ using json = nlohmann::json;
 #include <iostream>
 #include <boost/format.hpp>
 #include <sstream>
+#include <map>
 
 #include "server.hpp"
 
@@ -116,17 +117,18 @@ namespace Web
     std::cout << "web::Server:\t External ip for RPi '" << "https://10.9.8.2/" << "'" << std::endl;
   }
 
-  void Server::handleMsg(unsigned long id, osapi::Message *msg)
+  void Server::handleMsg(unsigned long id, osapi::Message* msg)
   {
-    auto msg = json::parse(msg);
-    std::cout << msg << std::endl;
+    
+    auto msg_client = json::parse(msg);
+    std::cout << msg_client << std::endl;
 
-    switch (msg.at("command")) {
+    switch (msg_client.at("command")) {
       // preset plant type cases
     case BrugerIndtastTF:
       {
-        std::cout << "Brugeren har indtastet temp på: " << msg.at("brugerT") << " grader " << std::endl;
-        std::cout << "Brugeren har indtastet fugt på: " << msg.at("brugerF") << " % " << std::endl;
+        std::cout << "Brugeren har indtastet temp på: " << msg_client.at("brugerT") << " grader " << std::endl;
+        std::cout << "Brugeren har indtastet fugt på: " << msg_client.at("brugerF") << " % " << std::endl;
 //        psocHandler_->setTemp(stringMatcher.at(msg.at("brugerT"))); noget i den her stil
 //        psocHandler_->setFugt(stringMatcher.at(msg.at("brugerF"))); noget i den her stil
 	break;
