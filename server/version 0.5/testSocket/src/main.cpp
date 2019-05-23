@@ -15,25 +15,20 @@
 using namespace std;
 
 
-int main(int argc, char* argv[]) {
-
-    cout << "main entered" << endl;
-    
+int main(int argc, char* argv[])
+{
     Web::Socket socket;
     Web::Server server(&socket);
 
     osapi::Thread socketThread(&socket);
-    cout << "thread is created" << endl;
     osapi::Thread serverThread(&server);
-    
+
     socketThread.start();
-    cout << "socket is started" <<endl;
     serverThread.start();
     
     socketThread.join();
-    cout << "socket is joined" << endl;
     serverThread.join();
-    
+        
     
     return 0;
 }

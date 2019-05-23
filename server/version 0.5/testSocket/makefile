@@ -70,7 +70,7 @@ OBJS			=$(addprefix ${BUILD_PATH}/, $(notdir ${SRC:%.cpp=%.o}))
 CXXFLAGS		+= -Wall -Iinc -D_REENTRANT -D$(OS) -I$(UWS_PATH) -I$(OSAPI_PATH)/inc
 LDFLAGS			=
 # Add uWS
-LDFLAGS			+= -L$(UWSLIB_PATH) -luWS -lssl -lcrypto -lz -luv -lrt -lpthread
+LDFLAGS			+= -L$(UWSLIB_PATH) -luWS -lssl -lcrypto -lz -lrt -lpthread
 # Add OSApi
 LDFLAGS			+= -L$(OSAPILIB_PATH) -lOSApi -lpthread -lrt
 VPATH			=$(SRC_PATH) $(SRC_PATH)/Web
