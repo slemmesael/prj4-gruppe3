@@ -18,10 +18,12 @@ namespace Web
         while (1) {
             /** uWebsocket handling */
             // Poll for data on the websocket
-            if (hubStatus_ == UWS_STATUS_VALID) {
+            if (hubStatus_ == UWS_STATUS_VALID) 
+            {
                 hub_.poll();
-                // std::cout << "Web::Socket: Polled" << std::endl;
-            } else {
+            } 
+            else
+            {
                 std::cout << "Web::Socket: Can't poll, status invalid" << std::endl;
                 break;
             }
