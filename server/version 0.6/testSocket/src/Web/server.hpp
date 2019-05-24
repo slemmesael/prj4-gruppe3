@@ -18,12 +18,26 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "Web/socket.hpp"
 
 namespace Web
 {
-
+    struct Request
+    {
+        std::string url;
+        std::string pattern;
+        std::map<std::string, std::string> params;
+        typedef std::map<std::string, std::string>::iterator ParamMapIter;
+    };
+    
+    struct plantData
+    {
+        int temp;
+        int humi;
+    };
+    
     class Server : public osapi::ThreadFunctor
     {
     public:
@@ -48,7 +62,7 @@ namespace Web
 
         };
 
-        *
+        /*
          * Class constructor that initializes all the local reference to other
          * object instances.
          * @param socket       Socket reference
@@ -76,7 +90,7 @@ namespace Web
          * @param id  Message id (local)
          * @param msg Message reference
          */
-        void handleMsg(unsigned long id, osapi::Message* msg);
+      void handleMsg(const std::string& msg);
         /**
          * The ThreadFunctors thread method.
          */
@@ -87,6 +101,20 @@ namespace Web
          */
         osapi::MsgQueue mq_;
 
+        /**
+         * The matching function. Used just like a regular routing function in
+         * any other language (mainly js). Pass the current url and then a
+         * specific pattern to match. If the url matches the pattern, the
+         * callback will be run and parsed with the match information as a
+         * request struct.
+         * @param url      The current parsed url
+         * @param pattern  The pattern to match
+         * @param callback The callback function to be called, if the url
+         *                 mathces the pattern.
+         */
+        void matchPath(std::string url,
+            std::string pattern,
+            std::function<void(Request req)> callback);
     
         /**
          * The active µWebsocket connection that is initialized in onConnection
@@ -107,6 +135,9 @@ namespace Web
          * Current humidity
          */
         int humi_;
+        
+        std::map<unsigned int, unsigned int> plantData_;
+        typedef std::map<unsigned int, unsigned int>::iterator plantDataIter;
 
     };
 }

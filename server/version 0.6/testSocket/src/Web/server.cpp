@@ -101,7 +101,7 @@ namespace Web
 				   uWS::OpCode opCode
 				   ) {
 			      std::string data = std::string(message,length);
-
+                  handleMsg(msg);
 			      std::cout << "web::Server:\t Data received: " << data << std::endl;
 /* match path funktioner her */
 
@@ -117,13 +117,13 @@ namespace Web
     std::cout << "web::Server:\t External ip for RPi '" << "https://10.9.8.2/" << "'" << std::endl;
   }
 
-  void Server::handleMsg(unsigned long id, osapi::Message* msg)
+  void Server::handleMsg(const std::string& msg)
   {
     
     auto msg_client = json::parse(msg);
     std::cout << msg_client << std::endl;
 
-    switch (msg_client.at("command")) {
+    switch (msg.at("command")) {
       // preset plant type cases
     case BrugerIndtastTF:
       {
