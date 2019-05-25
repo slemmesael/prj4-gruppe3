@@ -18,18 +18,37 @@
 
 #include <string>
 #include <vector>
-#include <map>
 
 #include "Web/socket.hpp"
-//#include "../regulering.hpp"
 
 namespace Web
 {
-  
+
     class Server : public osapi::ThreadFunctor
     {
     public:
-        /*
+        /**
+         * Annonymous enumerate that holds the class message ids
+         */
+        enum {
+           /* Plant types */
+            ID_PLANT_1, 
+            ID_PLANT_2, 
+            ID_PLANT_3, 
+
+            /** temperature */
+            ID_SET_TEMP,
+            ID_CURRENT_TEMP,
+
+            /** humidity */
+            ID_SET_HUMI,
+            ID_CURRENT_HUMI,
+            
+            
+
+        };
+
+        *
          * Class constructor that initializes all the local reference to other
          * object instances.
          * @param socket       Socket reference
@@ -50,8 +69,6 @@ namespace Web
         {
             return &mq_;
         }
-                
-
     private:
         /**
          * Handles all the message queue calls. Mostly consists of responses
@@ -68,11 +85,10 @@ namespace Web
         /**
          * The osapi Message queue
          */
-        osapi::MsgQueue mq_; 
-        
- 
+        osapi::MsgQueue mq_;
 
-       /**
+    
+        /**
          * The active µWebsocket connection that is initialized in onConnection
          */
         uWS::WebSocket<uWS::SERVER>* ws_;
@@ -81,6 +97,16 @@ namespace Web
          * the class constructor.
          */
         Socket* socket_;
+
+        /**
+         * Current temperature
+         */
+        int temp_;
+
+        /**
+         * Current humidity
+         */
+        int humi_;
 
     };
 }

@@ -1,4 +1,4 @@
-build/rpi/release/main.o: src/main.cpp src/Web/server.hpp \
+build/rpi/release/server.o: src/Web/server.cpp src/Web/server.hpp \
  lib/osApi/inc/osapi/Message.hpp lib/osApi/inc/osapi/MsgQueue.hpp \
  lib/osApi/inc/osapi/Mutex.hpp lib/osApi/inc/osapi/MutexError.hpp \
  lib/osApi/inc/osapi/Exceptions.hpp lib/osApi/inc/osapi/linux/Mutex.hpp \
@@ -12,4 +12,4 @@ build/rpi/release/main.o: src/main.cpp src/Web/server.hpp \
  lib/uWS/uWS/WebSocketProtocol.h lib/uWS/uWS/Networking.h \
  lib/uWS/uWS/Backend.h lib/uWS/uWS/Epoll.h lib/uWS/uWS/Socket.h \
  lib/uWS/uWS/HTTPSocket.h lib/uWS/uWS/Extensions.h lib/uWS/uWS/Node.h \
- src/Thread.hpp lib/osApi/inc/osapi/ThreadError.hpp src/ThreadFunctor.hpp
+ src/json.hpp

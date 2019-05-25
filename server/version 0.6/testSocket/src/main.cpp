@@ -12,27 +12,42 @@
 #include "Web/server.hpp"
 #include "Thread.hpp"
 #include "ThreadFunctor.hpp"
+#include "regulering.hpp"
 using namespace std;
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
+ /*   /** I2C File Initialization */
+    mode_t filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
 
-    cout << "main entered" << endl;
+    int file;
 
+    const char *filename = "/dev/i2c-1";
+
+    if ((file = open(filename, filePerms)) < 0) 
+    {
+        printf("Failed to open file '%s'\n", filename);
+    }
+    
+    regulering reg(&file);
+*/
     Web::Socket socket_;
     Web::Server server_(&socket_);
 
     osapi::Thread socketThread(&socket_);
-    cout << "thread is created" << endl;
     osapi::Thread serverThread(&server_);
+  //  osapi::Thread regThread(&reg);
 
     socketThread.start();
-    cout << "socket is started" <<endl;
     serverThread.start();
+   // regThread.start();
 
     socketThread.join();
-    cout << "socket is joined" << endl;
     serverThread.join();
+ //   regThread.join();
+    
+    close(file)
 
 
     return 0;
