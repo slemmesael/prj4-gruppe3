@@ -75,7 +75,7 @@ namespace Web
                 ws_->send(m.c_str(), m.size(), uWS::OpCode::TEXT);
                }
                 */
-                /*
+                
                 json dataParse = json::parse(data);
                 auto findCommand = dataParse.json::find("command");
                 std::cout << "Web::Server:\t parsed data: " << dataParse << std::endl;
@@ -132,6 +132,7 @@ namespace Web
                 {
                     //readI2C(temp,humi)
                     auto liveData = json::parse("{\"Temp\": 15, \"Fugt\": 60 }");
+                    std::cout << "Web::Server:\t live data sent " << std::endl;
                      
                     std::string message = liveData.dump(); 
                      
@@ -141,7 +142,7 @@ namespace Web
                 else
                     std::cout<<"no valid commando is received" << std::endl;
                                 
-                */
+                
             
 			    });
         
